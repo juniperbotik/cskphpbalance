@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Рабочие прокси</title>
+    <title>Прокси-серверы</title>
 </head>
 <body>
     <pre id="proxyList"></pre>
@@ -15,64 +15,18 @@
                 "https://raw.githubusercontent.com/roosterkid/openproxylist/main/SOCKS5_RAW.txt"
             ];
 
-            let workingProxies = [];
+            let proxyList = [];
 
             try {
                 for (let i = 0; i < proxyUrls.length; i++) {
                     const response = await fetch(proxyUrls[i]);
                     const text = await response.text();
                     const proxies = text.trim().split("\n");
-                    workingProxies = workingProxies.concat(await checkProxies(proxies));
+                    proxyList = proxyList.concat(proxies);
                 }
 
                 const proxyListElement = document.getElementById("proxyList");
-                proxyListElement.textContent = workingProxies.join("\n");
-            } catch (error) {
-                console.error("Error loading or checking proxies:", error);
-            }
-        }
-
-        function checkProxies(proxies) {
-            const timeout = 5000;
-            const workingProxies = [];
-
-            return new Promise((resolve) => {
-                const checkNextProxy = async (index) => {
-                    if (index < proxies.length) {
-                        try {
-                            const proxy = proxies[index];
-                            const parts = proxy.split(":");
-                            const ip = parts[0];
-                            const port = parseInt(parts[1]);
-
-                            const response = await fetch("https://example.com", {
-                                method: "GET",
-                                mode: "no-cors",
-                                cache: "no-cache",
-                                redirect: "follow",
-                                referrerPolicy: "no-referrer",
-                                agent: new window.socks5HttpAgent({ socksHost: ip, socksPort: port }),
-                                timeout: timeout
-                            });
-
-                            if (response.ok) {
-                                workingProxies.push(proxy);
-                            }
-                        } catch (error) {
-                            console.log(`Error checking proxy: ${proxies[index]}`);
-                        }
-
-                        setTimeout(() => {
-                            checkNextProxy(index + 1);
-                        }, 0); // Мгновенно переходить к следующей проверке
-
-                    } else {
-                        resolve(workingProxies);
-                    }
-                };
-
-                checkNextProxy(0);
-            });
+                proxyListElement.textContent = proxyList.join("\n");
         }
 
         loadProxyList();
