@@ -26,6 +26,7 @@ jobs:
           pip install requests
           pip install discord-webhook
           pip install pytz
+          pip install PyGithub
 
       - name: Run Script
         run: python script.py
