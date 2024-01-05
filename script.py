@@ -27,7 +27,7 @@ file_path = "proxies.txt"
 try:
     with open(file_path, "w"):
         pass
-except FileNotFoundError:
+except FileNotFoundError: 
     pass
 
 # Счетчик для подсчета общего количества прокси
