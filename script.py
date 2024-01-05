@@ -4,7 +4,7 @@ from discord_webhook import DiscordWebhook, DiscordEmbed
 from datetime import datetime
 import pytz
 
-proxy_urls = [
+proxy_urls = [ 
     "https://raw.githubusercontent.com/TheSpeedX/PROXY-List/master/socks4.txt",
     "https://raw.githubusercontent.com/TheSpeedX/PROXY-List/master/socks5.txt",
     "https://raw.githubusercontent.com/roosterkid/openproxylist/main/SOCKS4_RAW.txt",
