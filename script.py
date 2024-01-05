@@ -17,7 +17,7 @@ proxy_urls = [
     "https://raw.githubusercontent.com/ShiftyTR/Proxy-List/master/socks4.txt",
     "https://raw.githubusercontent.com/ShiftyTR/Proxy-List/master/socks5.txt",
     "https://raw.githubusercontent.com/rdavydov/proxy-list/main/proxies/socks4.txt",
-    "https://raw.githubusercontent.com/rdavydov/proxy-list/main/proxies/socks5.txt",
+    "https://raw.githubusercontent.com/rdavydov/proxy-list/main/proxies/socks5.txt", 
     "https://raw.githubusercontent.com/monosans/proxy-list/main/proxies/socks4.txt",
     "https://raw.githubusercontent.com/monosans/proxy-list/main/proxies/socks5.txt"
 ]
