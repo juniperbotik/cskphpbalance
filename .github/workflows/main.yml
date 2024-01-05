@@ -1,4 +1,4 @@
-name: Daily Script Update
+name: Proxy scraper 2h
 
 on:
   schedule:
