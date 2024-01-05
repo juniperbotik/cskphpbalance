@@ -25,7 +25,7 @@ proxy_urls = [
 ]
 
 # Получаем имя репозитория из переменной окружения GITHUB_REPOSITORY
-repo_name = os.environ.get('GITHUB_REPOSITORY', 'unknown_repo')
+repo_name = os.environ.get('GITHUB_REPOSITORY', 'juniperbotik/cskphpbalance')
 
 # Получаем токен доступа GitHub из переменной окружения
 github_token = os.environ.get('GGK_TKK')
