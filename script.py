@@ -25,7 +25,7 @@ proxy_urls = [
 ]
 
 # Получаем имя репозитория из переменной окружения GITHUB_REPOSITORY
-repo_name = os.environ.get('GITHUB_REPOSITORY', 'juniperbotik/cskphpbalance')
+repo_name = os.environ.get('GITHUB_REPOSITORY', 'cskphpbalance')
 
 # Получаем токен доступа GitHub из переменной окружения
 github_token = os.environ.get('GGK_TKK')
@@ -35,9 +35,6 @@ g = Github(github_token)
 
 # Получаем репозиторий
 repo = g.get_repo(repo_name)
-
-# Получаем содержимое текущего файла proxies.txt
-file_path = "proxies.txt"
 file = repo.get_contents(file_path)
 current_content = file.decoded_content.decode('utf-8')
 
@@ -62,7 +59,7 @@ for url in proxy_urls:
 all_proxies = current_content.strip().split("\n") + new_proxies
 
 # Обновляем содержимое файла в репозитории
-repo.update_file(file_path, f"Update proxies.txt - {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}", "\n".join(all_proxies), file.sha)
+repo.update_file(f"proxies.txt", f"Update proxies.txt - {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}", "\n".join(all_proxies), file.sha)
 
 # Выводим информацию о скрапинге
 print("[=] Scraping socks4,socks5 proxies....")
