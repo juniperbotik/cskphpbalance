@@ -3,6 +3,9 @@ name: Daily Script Update
 on:
   schedule:
     - cron: '0 11 * * *'  # Ежедневно в 11:00 UTC
+  push:
+    paths:
+      - script.py
 
 jobs:
   update_script:
@@ -24,4 +27,3 @@ jobs:
 
       - name: Run Script
         run: python script.py
- 
