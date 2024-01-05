@@ -2,12 +2,6 @@
 <html>
 <head>
     <title>Прокси-серверы</title>
-    <style>
-        body {
-            background-color: black;
-            color: white;
-        }
-    </style>
 </head>
 <body>
     <pre id="proxyList"></pre>
@@ -23,21 +17,22 @@
                 "https://raw.githubusercontent.com/jetkai/proxy-list/main/online-proxies/txt/proxies-socks5.txt",
                 "https://raw.githubusercontent.com/jetkai/proxy-list/main/online-proxies/txt/proxies-http.txt",
                 "https://raw.githubusercontent.com/jetkai/proxy-list/main/online-proxies/txt/proxies-https.txt",
-                "https://api.proxyscrape.com/v2/?request=displayproxies&protocol=socks4"
-                "https://api.proxyscrape.com/v2/?request=displayproxies&protocol=socks5"
-                "https://raw.githubusercontent.com/ShiftyTR/Proxy-List/master/socks4.txt"
-                "https://raw.githubusercontent.com/ShiftyTR/Proxy-List/master/socks5.txt"
-                "https://raw.githubusercontent.com/rdavydov/proxy-list/main/proxies/socks4.txt"
-                "https://raw.githubusercontent.com/rdavydov/proxy-list/main/proxies/socks5.txt"
-                "https://raw.githubusercontent.com/monosans/proxy-list/main/proxies/socks4.txt"
+                "https://api.proxyscrape.com/v2/?request=displayproxies&protocol=socks4",
+                "https://api.proxyscrape.com/v2/?request=displayproxies&protocol=socks5",
+                "https://raw.githubusercontent.com/ShiftyTR/Proxy-List/master/socks4.txt",
+                "https://raw.githubusercontent.com/ShiftyTR/Proxy-List/master/socks5.txt",
+                "https://raw.githubusercontent.com/rdavydov/proxy-list/main/proxies/socks4.txt",
+                "https://raw.githubusercontent.com/rdavydov/proxy-list/main/proxies/socks5.txt",
+                "https://raw.githubusercontent.com/monosans/proxy-list/main/proxies/socks4.txt",
                 "https://raw.githubusercontent.com/monosans/proxy-list/main/proxies/socks5.txt"
             ];
 
             let proxyList = [];
 
             try {
-                for (let i = 0; i < proxyUrls.length; i++) {
-                    const response = await fetch(proxyUrls[i]);
+                const responses = await Promise.all(proxyUrls.map(url => fetch(url)));
+                
+                for (const response of responses) {
                     const text = await response.text();
                     const proxies = text.trim().split("\n");
                     proxyList = proxyList.concat(proxies);
