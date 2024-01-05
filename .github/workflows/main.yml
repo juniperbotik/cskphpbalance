@@ -31,6 +31,9 @@ jobs:
           ls
 
       - name: Run Script
-        run: python script.py
+        run: |
+          cd /home/runner/work/cskphpbalance/cskphpbalance
+          rm proxies.txt
+          python script.txt
         env:
           GITHUB_TOKEN: ${{ secrets.GGK_TKK }}
