@@ -29,7 +29,7 @@ file_path = os.path.join(os.getcwd(), "proxies.txt")
 
 # Удаляем существующий файл proxies.txt, если он существует
 try:
-    os.remove(file_path)
+    os.remove(file_path) 
 except FileNotFoundError:
     pass
 
