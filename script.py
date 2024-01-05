@@ -26,12 +26,6 @@ proxy_urls = [
 # Указываем абсолютный путь к файлу proxies.txt
 file_path = "/home/runner/work/cskphpbalance/cskphpbalance/proxies.txt"
 
-# Удаляем существующий файл proxies.txt, если он существует
-try:
-    os.remove(file_path)
-except FileNotFoundError:
-    pass
-
 # Счетчик для подсчета общего количества прокси
 total_proxies = 0
 
