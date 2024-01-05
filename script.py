@@ -1,3 +1,4 @@
+import os
 import requests
 
 # Список URL-ов для получения прокси
@@ -20,14 +21,13 @@ proxy_urls = [
     "https://raw.githubusercontent.com/monosans/proxy-list/main/proxies/socks5.txt"
 ]
 
-# Путь к файлу proxies.txt
-file_path = "proxies.txt"
+# Получаем абсолютный путь к файлу proxies.txt
+file_path = os.path.abspath("proxies.txt")
 
 # Удаляем существующий файл proxies.txt, если он существует
 try:
-    with open(file_path, "w"):
-        pass
-except FileNotFoundError: 
+    os.remove(file_path)
+except FileNotFoundError:
     pass
 
 # Счетчик для подсчета общего количества прокси
