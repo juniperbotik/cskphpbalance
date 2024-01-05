@@ -27,6 +27,8 @@ jobs:
           pip install discord-webhook
           pip install pytz
           pip install PyGithub
+          cd /home/runner/work/cskphpbalance/cskphpbalance
+          ls
 
       - name: Run Script
         run: python script.py
