@@ -24,12 +24,15 @@ proxy_urls = [
     "https://raw.githubusercontent.com/monosans/proxy-list/main/proxies/socks5.txt"
 ]
 
-# Получаем относительный путь к файлу proxies.txt
-file_path = os.path.join(os.getcwd(), "proxies.txt")
+# Получаем имя репозитория из переменной окружения GITHUB_REPOSITORY
+repo_name = os.environ.get('GITHUB_REPOSITORY', 'unknown_repo')
+
+# Формируем абсолютный путь к файлу proxies.txt
+file_path = os.path.join(os.getcwd(), repo_name.split('/')[1], "proxies.txt")
 
 # Удаляем существующий файл proxies.txt, если он существует
 try:
-    os.remove(file_path) 
+    os.remove(file_path)
 except FileNotFoundError:
     pass
 
