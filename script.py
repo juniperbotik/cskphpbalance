@@ -61,7 +61,7 @@ current_utc_time = datetime.utcnow().replace(tzinfo=pytz.utc).strftime("%Y-%m-%d
 # Отправляем вебхук Discord
 webhook_url = "https://discord.com/api/webhooks/1192883303804575865/vL2v4_548NOj-Q0FhMjcA45gzCPqRhG4IerrHSS08c85UhmHkYZUxzVPHanhBLFwaaqO"
 
-webhook = DiscordWebhook(url=webhook_url)
+webhook = DiscordWebhook(url=webhook_url) 
 embed = DiscordEmbed(title="Github | Proxy scraped!", description=f"{total_proxies} proxies", color=0x3498db)
 embed.set_author(name="Mozaika")
 embed.add_embed_field(name="Current UTC Time", value=current_utc_time)
