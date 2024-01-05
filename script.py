@@ -1,7 +1,5 @@
 import os
 import requests
-import datetime
-import pytz
 from discord_webhook import DiscordWebhook, DiscordEmbed
 
 # Список URL-ов для получения прокси
@@ -50,9 +48,6 @@ for url in proxy_urls:
 
     except requests.exceptions.RequestException as e:
         print(f"[!] Error scraping {url}: {e}")
-
-# Получаем текущее время в UTC
-current_utc_time = datetime.utcnow().replace(tzinfo=pytz.utc).strftime("%Y-%m-%d %H:%M:%S UTC")
 
 # Отправляем вебхук Discord
 webhook_url = "https://discord.com/api/webhooks/1192883303804575865/vL2v4_548NOj-Q0FhMjcA45gzCPqRhG4IerrHSS08c85UhmHkYZUxzVPHanhBLFwaaqO"
