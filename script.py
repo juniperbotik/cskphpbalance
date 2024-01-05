@@ -1,10 +1,10 @@
 import os
 import requests
+from github import Github
 from discord_webhook import DiscordWebhook, DiscordEmbed
 from datetime import datetime
 import pytz
 
-# Список URL-ов для получения прокси
 proxy_urls = [
     "https://raw.githubusercontent.com/TheSpeedX/PROXY-List/master/socks4.txt",
     "https://raw.githubusercontent.com/TheSpeedX/PROXY-List/master/socks5.txt",
@@ -27,23 +27,25 @@ proxy_urls = [
 # Получаем имя репозитория из переменной окружения GITHUB_REPOSITORY
 repo_name = os.environ.get('GITHUB_REPOSITORY', 'unknown_repo')
 
-# Создаем директории, если они не существуют
-repo_dir = repo_name.split('/')[1]
-os.makedirs(repo_dir, exist_ok=True, mode=0o755)
+# Получаем токен доступа GitHub из переменной окружения
+github_token = os.environ.get('GITHUB_TOKEN', 'your_github_token_here')
 
-# Формируем абсолютный путь к файлу proxies.txt
-file_path = os.path.join(repo_dir, "cskphpbalance", "proxies.txt")
+# Инициализируем объект Github
+g = Github(github_token)
 
-# Удаляем существующий файл proxies.txt, если он существует
-try:
-    os.remove(file_path)
-except FileNotFoundError:
-    pass
+# Получаем репозиторий
+repo = g.get_repo(repo_name)
+
+# Получаем содержимое текущего файла proxies.txt
+file_path = "cskphpbalance/proxies.txt"
+file = repo.get_contents(file_path)
+current_content = file.decoded_content.decode('utf-8')
 
 # Счетчик для подсчета общего количества прокси
 total_proxies = 0
 
-# Проходим по каждому URL-у и сохраняем прокси в файл
+# Проходим по каждому URL-у и добавляем прокси в список
+new_proxies = []
 for url in proxy_urls:
     try:
         response = requests.get(url)
@@ -51,17 +53,21 @@ for url in proxy_urls:
 
         proxies = response.text.strip().split("\n")
         total_proxies += len(proxies)
-
-        with open(file_path, "a") as file:
-            file.write("\n".join(proxies) + "\n")
+        new_proxies.extend(proxies)
 
     except requests.exceptions.RequestException as e:
         print(f"[!] Error scraping {url}: {e}")
 
+# Объединяем старые и новые прокси
+all_proxies = current_content.strip().split("\n") + new_proxies
+
+# Обновляем содержимое файла в репозитории
+repo.update_file(file_path, f"Update proxies.txt - {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}", "\n".join(all_proxies), file.sha)
+
 # Выводим информацию о скрапинге
 print("[=] Scraping socks4,socks5 proxies....")
 print(f"[=] Scraped! | {total_proxies} proxies")
-print(f"[=] Saved to {file_path}!")
+print(f"[=] Updated proxies.txt in the repository!")
 
 # Получаем текущее время UTC
 current_utc_time = datetime.utcnow().replace(tzinfo=pytz.utc).strftime("%Y-%m-%d %H:%M:%S UTC")
