@@ -28,7 +28,7 @@ proxy_urls = [
 repo_name = os.environ.get('GITHUB_REPOSITORY', 'unknown_repo')
 
 # Получаем токен доступа GitHub из переменной окружения
-github_token = os.environ.get('GITHUB_TOKEN', 'your_github_token_here')
+github_token = os.environ.get('GITHUB_TOKEN')
 
 # Инициализируем объект Github
 g = Github(github_token)
