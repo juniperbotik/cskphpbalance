@@ -2,7 +2,7 @@ name: Daily Script Update
 
 on:
   schedule:
-    - cron: '52 17 * * *'
+    - cron: '0 */2 * * *'  # Run every 2 hours
   push:
     paths:
       - script.py
