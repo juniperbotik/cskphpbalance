@@ -8,7 +8,7 @@ on:
       - script.py
 
 jobs:
-  update_script:
+  update_script: 
     runs-on: ubuntu-latest
 
     steps:
