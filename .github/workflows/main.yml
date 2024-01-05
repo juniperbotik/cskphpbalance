@@ -1,0 +1,26 @@
+name: Daily Script Update
+
+on:
+  schedule:
+    - cron: '0 11 * * *'  # Ежедневно в 11:00 UTC
+
+jobs:
+  update_script:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.11.4
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+
+      - name: Run Script
+        run: python script.py
