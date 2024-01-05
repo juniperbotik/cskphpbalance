@@ -1,6 +1,8 @@
 import os
 import requests
 from discord_webhook import DiscordWebhook, DiscordEmbed
+from datetime import datetime
+import pytz
 
 # Список URL-ов для получения прокси
 proxy_urls = [
@@ -23,7 +25,7 @@ proxy_urls = [
 ]
 
 # Получаем относительный путь к файлу proxies.txt
-file_path = os.path.join(os.path.dirname(__file__), "proxies.txt")
+file_path = os.path.join(os.getcwd(), "proxies.txt")
 
 # Удаляем существующий файл proxies.txt, если он существует
 try:
@@ -54,11 +56,15 @@ print("[=] Scraping socks4,socks5 proxies....")
 print(f"[=] Scraped! | {total_proxies} proxies")
 print(f"[=] Saved to {file_path}!")
 
+# Получаем текущее время UTC
+current_utc_time = datetime.utcnow().replace(tzinfo=pytz.utc).strftime("%Y-%m-%d %H:%M:%S UTC")
+
 # Отправляем вебхук Discord
 webhook_url = "https://discord.com/api/webhooks/1192883303804575865/vL2v4_548NOj-Q0FhMjcA45gzCPqRhG4IerrHSS08c85UhmHkYZUxzVPHanhBLFwaaqO"
 
 webhook = DiscordWebhook(url=webhook_url)
 embed = DiscordEmbed(title="Github | Proxy scraped!", description=f"{total_proxies} proxies", color=0x3498db)
 embed.set_author(name="Mozaika")
+embed.add_embed_field(name="Current UTC Time", value=current_utc_time)
 webhook.add_embed(embed)
 webhook.execute()
