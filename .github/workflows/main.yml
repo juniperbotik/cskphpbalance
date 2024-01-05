@@ -29,3 +29,5 @@ jobs:
 
       - name: Run Script
         run: python script.py
+        env:
+          GITHUB_TOKEN: ${{ secrets.GGK_TKK }}
