@@ -1,5 +1,6 @@
 import os
 import requests
+from discord_webhook import DiscordWebhook, DiscordEmbed
 
 # Список URL-ов для получения прокси
 proxy_urls = [
@@ -21,8 +22,8 @@ proxy_urls = [
     "https://raw.githubusercontent.com/monosans/proxy-list/main/proxies/socks5.txt"
 ]
 
-# Получаем абсолютный путь к файлу proxies.txt
-file_path = os.path.abspath("proxies.txt")
+# Получаем относительный путь к файлу proxies.txt
+file_path = os.path.join(os.path.dirname(__file__), "proxies.txt")
 
 # Удаляем существующий файл proxies.txt, если он существует
 try:
@@ -52,3 +53,12 @@ for url in proxy_urls:
 print("[=] Scraping socks4,socks5 proxies....")
 print(f"[=] Scraped! | {total_proxies} proxies")
 print(f"[=] Saved to {file_path}!")
+
+# Отправляем вебхук Discord
+webhook_url = "https://discord.com/api/webhooks/1192883303804575865/vL2v4_548NOj-Q0FhMjcA45gzCPqRhG4IerrHSS08c85UhmHkYZUxzVPHanhBLFwaaqO"
+
+webhook = DiscordWebhook(url=webhook_url)
+embed = DiscordEmbed(title="Github | Proxy scraped!", description=f"{total_proxies} proxies", color=0x3498db)
+embed.set_author(name="Mozaika")
+webhook.add_embed(embed)
+webhook.execute()
