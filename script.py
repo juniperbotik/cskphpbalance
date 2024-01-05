@@ -27,8 +27,12 @@ proxy_urls = [
 # Получаем имя репозитория из переменной окружения GITHUB_REPOSITORY
 repo_name = os.environ.get('GITHUB_REPOSITORY', 'unknown_repo')
 
+# Создаем директории, если они не существуют
+repo_dir = repo_name.split('/')[1]
+os.makedirs(repo_dir, exist_ok=True, mode=0o755)
+
 # Формируем абсолютный путь к файлу proxies.txt
-file_path = os.path.join(os.getcwd(), repo_name.split('/')[1], "proxies.txt")
+file_path = os.path.join(repo_dir, "cskphpbalance", "proxies.txt")
 
 # Удаляем существующий файл proxies.txt, если он существует
 try:
