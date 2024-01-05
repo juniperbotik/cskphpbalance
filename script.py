@@ -37,7 +37,7 @@ g = Github(github_token)
 repo = g.get_repo(repo_name)
 
 # Получаем содержимое текущего файла proxies.txt
-file_path = "cskphpbalance/proxies.txt"
+file_path = "proxies.txt"
 file = repo.get_contents(file_path)
 current_content = file.decoded_content.decode('utf-8')
 
